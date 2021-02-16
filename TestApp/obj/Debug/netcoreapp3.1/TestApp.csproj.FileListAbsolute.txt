@@ -1,0 +1,16 @@
+C:\Users\Ivan\source\repos\BinaryTreeAPI\TestApp\bin\Debug\netcoreapp3.1\TestApp.exe
+C:\Users\Ivan\source\repos\BinaryTreeAPI\TestApp\bin\Debug\netcoreapp3.1\TestApp.deps.json
+C:\Users\Ivan\source\repos\BinaryTreeAPI\TestApp\bin\Debug\netcoreapp3.1\TestApp.runtimeconfig.json
+C:\Users\Ivan\source\repos\BinaryTreeAPI\TestApp\bin\Debug\netcoreapp3.1\TestApp.runtimeconfig.dev.json
+C:\Users\Ivan\source\repos\BinaryTreeAPI\TestApp\bin\Debug\netcoreapp3.1\TestApp.dll
+C:\Users\Ivan\source\repos\BinaryTreeAPI\TestApp\bin\Debug\netcoreapp3.1\TestApp.pdb
+C:\Users\Ivan\source\repos\BinaryTreeAPI\TestApp\bin\Debug\netcoreapp3.1\DataStructures.dll
+C:\Users\Ivan\source\repos\BinaryTreeAPI\TestApp\bin\Debug\netcoreapp3.1\DataStructures.pdb
+C:\Users\Ivan\source\repos\BinaryTreeAPI\TestApp\obj\Debug\netcoreapp3.1\TestApp.csprojAssemblyReference.cache
+C:\Users\Ivan\source\repos\BinaryTreeAPI\TestApp\obj\Debug\netcoreapp3.1\TestApp.AssemblyInfoInputs.cache
+C:\Users\Ivan\source\repos\BinaryTreeAPI\TestApp\obj\Debug\netcoreapp3.1\TestApp.AssemblyInfo.cs
+C:\Users\Ivan\source\repos\BinaryTreeAPI\TestApp\obj\Debug\netcoreapp3.1\TestApp.csproj.CoreCompileInputs.cache
+C:\Users\Ivan\source\repos\BinaryTreeAPI\TestApp\obj\Debug\netcoreapp3.1\TestApp.csproj.CopyComplete
+C:\Users\Ivan\source\repos\BinaryTreeAPI\TestApp\obj\Debug\netcoreapp3.1\TestApp.dll
+C:\Users\Ivan\source\repos\BinaryTreeAPI\TestApp\obj\Debug\netcoreapp3.1\TestApp.pdb
+C:\Users\Ivan\source\repos\BinaryTreeAPI\TestApp\obj\Debug\netcoreapp3.1\TestApp.genruntimeconfig.cache
