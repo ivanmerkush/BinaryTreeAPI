@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using DataStructures;
 using System.Linq;
-
+using System.Collections.Immutable;
 namespace TestApp
 {
     class TestApp
     {
-        static void Main()
+        static void Main()  
         {
             BinaryTree<int, string> binaryTree1 = new BinaryTree<int, string>();
             binaryTree1.AddNode(-2, null);
@@ -20,22 +20,10 @@ namespace TestApp
             binaryTree1.AddNode(8, "bbb");
             binaryTree1.AddNode(10, "vbn");
             binaryTree1.AddNode(-3, "ccc");
-            binaryTree1.GetNodes(out IList<Node<int, string>> list, Direction.Ascending);
-                Console.WriteLine(binaryTree1.Counter);
-            //foreach(Node<int, string> node in list)
-            //{
-            //    Console.WriteLine(node);
-            //}
-            //Console.WriteLine("\n\n");
-            //binaryTree1.RemoveNode(1);
-            binaryTree1.GetNodes(out list, Direction.Ascending);
-            //Console.WriteLine(binaryTree1.Counter);
-            //foreach (Node<int, string> node in list)
-            //{
-            //    Console.WriteLine(node);
-            //}
-            //Console.WriteLine("\n\n");
-            //Console.WriteLine(binaryTree1.Exists(10));
+            List<Node<int, string>> list = new List<Node<int, string>>();
+            binaryTree1.GetNodes(list , Direction.Ascending);
+            Console.WriteLine(binaryTree1.Counter);
+            binaryTree1.GetNodes(list, Direction.Ascending);
 
             List<Node<int, string>> keyValues = new List<Node<int, string>>
             {
@@ -48,9 +36,8 @@ namespace TestApp
                 new Node<int,string>( 21, "bbbasd" ),
                 new Node<int,string>( 19, "mmm" )
             };
-            binaryTree1.AddNodes(keyValues);
-            binaryTree1.GetNodes(out list, Direction.Ascending);
-            //Console.WriteLine(binaryTree1.Counter);
+            binaryTree1.AddRange(keyValues.ToImmutableList());
+            binaryTree1.GetNodes( list, Direction.Ascending);
             foreach (Node<int, string> node in list)
             {
                 Console.WriteLine(node);
@@ -79,29 +66,6 @@ namespace TestApp
             int count = binaryTree1.Counter;
             Console.WriteLine(count);
 
-            //BinaryTree<long, double> binaryTree2 = new BinaryTree<long, double>();
-
-            //Dictionary<long, double> keyValues1 = new Dictionary<long, double>
-            //{
-            //    { -10, 0.8 },
-            //    { -7, 12.7 },
-            //    { -6, 15.6 },
-            //    { -12, 123.5 },
-            //    { -13, 43.4 },
-            //    { 203, 123.3 },
-            //    { 21, 67.2 },
-            //    { 19, 19.1 }
-
-            //};
-
-            //List<Node<long, double>> list1 = new List<Node<long, double>>();
-            //binaryTree2.GetNodes(list1, Direction.Descending);
-            //Console.WriteLine(binaryTree2.Counter);
-            //foreach (Node<long, double> node in list1)
-            //{
-            //    Console.WriteLine(node);
-            //}
-            //Console.WriteLine("\n\n");
         }
     }
 }
