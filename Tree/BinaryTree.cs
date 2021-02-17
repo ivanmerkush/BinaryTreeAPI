@@ -104,7 +104,6 @@ namespace DataStructures
             switch(node.Key.CompareTo(key))
             {
                 case 0:
-                    node.Value = value;
                     break;
                 case 1:
                     if (node.LeftNode == null)
@@ -137,10 +136,9 @@ namespace DataStructures
         /// Method inserts into binary tree all unique elements from collection
         /// </summary>
         /// <param name="collection"></param>
-        public void AddRange(IImmutableList<Node<K, V>> collection)
+        public void AddRange(IEnumerable<Node<K, V>> collection)
         {
-            IEnumerable<Node<K, V>> list = collection.Distinct();
-            foreach(Node<K, V> node in list)
+            foreach(Node<K, V> node in collection)
             {
                 AddNode(node.Key, node.Value);
             }
