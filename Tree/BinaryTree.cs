@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Immutable;
 
 namespace DataStructures
 {
@@ -43,14 +44,7 @@ namespace DataStructures
         /// <returns></returns>
         public bool Exists(K key)
         {
-            if (FindNode(key) != null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return FindNode(key) != null;
         }
 
         /// <summary>
@@ -60,31 +54,24 @@ namespace DataStructures
         /// <returns></returns>
         public Node<K, V> FindNode(K key)
         {
-            try
+            if (key == null)
             {
-                if(key == null)
-                {
-                    throw new ArgumentNullException();
-                }
-                Node<K, V> node = Root;
-                while (node != null)
-                {
-                    switch (node.Key.CompareTo(key))
-                    {
-                        case 0:
-                            return node;
-                        case 1:
-                            node = node.LeftNode;
-                            break;
-                        default:
-                            node = node.RightNode;
-                            break;
-                    }
-                }
+                return null;
             }
-            catch(ArgumentNullException)
+            Node<K, V> node = Root;
+            while (node != null)
             {
-
+                switch (node.Key.CompareTo(key))
+                {
+                    case 0:
+                        return node;
+                    case 1:
+                        node = node.LeftNode;
+                        break;
+                    default:
+                        node = node.RightNode;
+                        break;
+                }
             }
             return null;
         }
@@ -96,27 +83,20 @@ namespace DataStructures
         /// <param name="value"></param>
         public bool AddNode(K key, V value)
         {
-            try
-            {
-                if(key == null || value == null)
-                {
-                    throw new ArgumentNullException();
-                }
-                if(Root == null)
-                {
-                    Root = new Node<K, V>(key, value);
-                    Counter++;
-                }
-                else
-                {
-                    AddNode(Root, key, value);
-                }
-                return true;
-            }
-            catch(ArgumentNullException)
+            if (key == null || value == null)
             {
                 return false;
             }
+            if (Root == null)
+            {
+                Root = new Node<K, V>(key, value);
+                Counter++;
+            }
+            else
+            {
+                AddNode(Root, key, value);
+            }
+            return true;
         }
 
         private void AddNode(Node<K, V> node, K key, V value)
@@ -148,59 +128,24 @@ namespace DataStructures
                         AddNode(node.RightNode, key, value);
                     }
                     break;
+
             }
         }
 
 
         /// <summary>
-        /// Method inserts into binary tree all elements from list
+        /// Method inserts into binary tree all unique elements from collection
         /// </summary>
-        /// <param name="list"></param>
-        public void AddNodes(List<Node<K, V>> list)
+        /// <param name="collection"></param>
+        public void AddRange(IImmutableList<Node<K, V>> collection)
         {
-            List<Node<K, V>> copyList = list.ToList();
-            if(Root == null)
+            IEnumerable<Node<K, V>> list = collection.Distinct();
+            foreach(Node<K, V> node in list)
             {
-                Root = copyList.ElementAt(0);
-                copyList.RemoveAll(n => n.Key.CompareTo(Root.Key) == 0);
+                AddNode(node.Key, node.Value);
             }
-            AddNodes(Root, copyList);
         }
 
-        private void AddNodes(Node<K, V> node, List<Node<K, V>> list)
-        {
-            if (list.Contains(node))
-            {
-                node.Value = list.First(n => n.Key.CompareTo(node.Key) == 0).Value;
-                list.RemoveAll(n => n.Key.CompareTo(node.Key) == 0);
-            }
-            List<Node<K, V>> leftList = list.Where(n => n.CompareTo(node) == -1).ToList();
-            if (leftList.Count() != 0)
-            {
-                if (node.LeftNode == null)
-                {
-                    node.LeftNode = new Node<K, V>(leftList.ElementAt(0).Key, leftList.ElementAt(0).Value, node); 
-                    Counter++;
-                    leftList.RemoveAll(n => n.Key.CompareTo(node.Key) == 0);
-                }
-                AddNodes(node.LeftNode, leftList);
-
-            }
-
-            List<Node<K, V>> rightList = list.Where(n => n.CompareTo(node) == 1).ToList();
-            if (rightList.Count() != 0)
-            {
-                if (node.RightNode == null)
-                {
-                    node.RightNode = new Node<K, V>(rightList.ElementAt(0).Key, rightList.ElementAt(0).Value, node);
-                    Counter++;
-                    rightList.RemoveAll(n => n.Key.CompareTo(node.Key) == 0);
-                }
-                AddNodes(node.RightNode, rightList);
-
-            }
-
-        }
 
         /// <summary>
         /// Removes node, if it exists.
@@ -208,23 +153,12 @@ namespace DataStructures
         /// <param name="key"></param>
         public bool RemoveNode(K key)
         {
-            try
-            {
-                if(key == null)
-                {
-                    throw new ArgumentNullException("Remove method got parameter key = null;");
-                }
-                if(Root == null)
-                {
-                    throw new ArgumentNullException("Root is null;");
-                }
-                Root = RemoveNode(Root, key);
-                return true;
-            }
-            catch(ArgumentNullException)
+            if (key == null || Root == null)
             {
                 return false;
             }
+            Root = RemoveNode(Root, key);
+            return true;
         }
 
         private Node<K, V> RemoveNode(Node<K, V> node, K key)
@@ -265,15 +199,6 @@ namespace DataStructures
                     return node;
                 }
             }
-        }
-
-        private Node<K, V> FindMaxNode(Node<K, V> node)
-        {
-            if (node.RightNode == null)
-            {
-                return node;
-            }
-            return FindMaxNode(node.RightNode);
         }
 
         private Node<K, V> FindMinNode(Node<K, V> node)
@@ -327,10 +252,7 @@ namespace DataStructures
         }
         public void Dispose()
         {
-            Root = null;
-            Node = null;
-            Current = null;
-            GC.SuppressFinalize(this);
+
         }
 
         public bool MoveNext()
@@ -391,11 +313,5 @@ namespace DataStructures
         {
             Node = Root;
         }
-
-        ~TreeEnumerator()
-        {
-            Dispose();
-        }
-
     }
 }

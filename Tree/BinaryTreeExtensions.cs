@@ -7,28 +7,33 @@ namespace DataStructures
     {
 
         /// <summary>
-        /// Returns all nodes of this tree. Depending on param isAscending returns ascending or descending dictionary.
+        /// Returns all nodes of this tree. Depending on param isAscending returns ascending or descending collection.
         /// </summary>
         /// <param name="isAscending"></param>
         /// <returns></returns>
-        public static void GetNodes<K, V>(this BinaryTree<K, V> binaryTree, out IList<Node<K, V>> list, Direction direction) where K : IComparable
+        public static bool GetNodes<K, V>(this BinaryTree<K, V> binaryTree, ICollection<Node<K, V>> collection, Direction direction) where K : IComparable
         {
-            list = new List<Node<K, V>>(binaryTree.Counter);
+            if(collection == null)
+            {
+                return false;
+            }
+            collection.Clear();
             switch (direction)
             {
                 case Direction.Ascending:
-                    GetNodesAscending(binaryTree.Root, list);
+                    GetNodesAscending(binaryTree.Root, collection);
                     break;
                 case Direction.Descending:
-                    GetNodesDescending(binaryTree.Root, list);
+                    GetNodesDescending(binaryTree.Root, collection);
                     break;
                 default:
                     break;
             }
+            return true;
         }
 
 
-        private static void GetNodesAscending<K, V>(Node<K, V> node, IList<Node<K, V>> list) where K: IComparable
+        private static void GetNodesAscending<K, V>(Node<K, V> node, ICollection<Node<K, V>> list) where K: IComparable
         {
             if (node.LeftNode != null)
             {
@@ -41,7 +46,7 @@ namespace DataStructures
             }
         }
 
-        private static void GetNodesDescending<K, V>(Node<K, V> node, IList<Node<K, V>> list) where K: IComparable
+        private static void GetNodesDescending<K, V>(Node<K, V> node, ICollection<Node<K, V>> list) where K: IComparable
         {
             if (node.RightNode != null)
             {
